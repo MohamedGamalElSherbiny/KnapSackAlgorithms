@@ -5,15 +5,16 @@ data_in = True
 while data_in:
     user_choice = input("1- Input your data using csv.\n"
                         "2- Input your data as a list.\n")
-    if user_choice is ["1", "2"]:
+    if user_choice in ["1", "2"]:
         if user_choice == "1":
-            count = input("Please enter the amount of numbers to enter: ")
+            count = int(input("Please enter the amount of numbers to enter: "))
             ReadData().create_weight_value(count=count)
         elif user_choice == "2":
             path = input("Please enter the full file path: \n")
         on = True
     else:
         on = False
+    print(on)
     while on:
         user_choice = input("1- Fractional Knapsack OR I/O Knapsack\n"
                             "2- Update input Data\n"
