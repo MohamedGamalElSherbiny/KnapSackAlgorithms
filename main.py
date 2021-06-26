@@ -5,12 +5,13 @@ data_in = True
 while data_in:
     user_choice = input("1- Input your data using csv.\n"
                         "2- Input your data as a list.\n")
-    if user_choice in ["1", "2"]:
+    if user_choice in "2":
         if user_choice == "2":
             count = int(input("Please enter the amount of numbers to enter: "))
             data = ReadData().create_weight_value(count=count)
         elif user_choice == "1":
             path = input("Please enter the full file path: \n")
+            ## I didn't implement the csv reading
         on = True
     else:
         on = False
