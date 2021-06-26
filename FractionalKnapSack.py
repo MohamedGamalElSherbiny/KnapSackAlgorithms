@@ -1,40 +1,32 @@
 class FractionalKnapSack:
 
-    @staticmethod
-    def get_max_profit(df, capacity):
-        total_value = 0
-        df.sort_values(by='Value', ascending=False)
-        for _ in df:
-            if capacity - df['Weight'] >= 0:
-                total_value += df['Value']
-            else:
-                fraction = capacity / df['Weight']
-                total_value += df['Value'] * fraction
-                break
-        return total_value
+    def __init__(self, df, capacity):
+        self.df = df
+        self.capacity = capacity
 
-    @staticmethod
-    def get_minimum_weight(df, capacity):
-        total_value = 0
-        df.sort_values(by='Weight')
-        for _ in df:
-            if capacity - df['Weight'] >= 0:
-                total_value += df['Value']
-            else:
-                fraction = capacity / df['Weight']
-                total_value += df['Value'] * fraction
-                break
-        return total_value
+    def choose_type(self, output_type):
+        if output_type == "1":
+            self.df = self.df.sort_values(by='Value', ascending=False)
+        elif output_type == "2":
+            self.df = self.df.sort_values(by='Weight')
+        elif output_type == "3":
+            self.df = self.df.sort_values(by='Value Per Weight')
+        return self.apply_fractional_knapsack()
 
-    @staticmethod
-    def get_maximum_profit_over_weight(df, capacity):
+    def apply_fractional_knapsack(self):
         total_value = 0
-        df.sort_values(by='Value Per Weight')
-        for _ in df:
-            if capacity - df['Weight'] >= 0:
-                total_value += df['Value']
+        i = 0
+        print(self.df)
+        while self.capacity > 0:
+            print('Capacity = ', self.capacity)
+            if self.capacity - self.df['Weight'].iloc[i] >= 0:
+                total_value += self.df['Value'].iloc[i]
+                self.capacity -= self.df['Weight'].iloc[i]
             else:
-                fraction = capacity / df['Weight']
-                total_value += df['Value'] * fraction
+                fraction = self.capacity / self.df['Weight'].iloc[i]
+                total_value += self.df['Value'].iloc[i] * fraction
+                self.capacity -= self.df['Weight'].iloc[i] * fraction
+                print(self.capacity)
                 break
+            i += 1
         return total_value

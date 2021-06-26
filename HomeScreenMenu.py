@@ -1,47 +1,40 @@
 from FractionalKnapSack import FractionalKnapSack
 from IOKnapSack import IOKnapSack
 from ReadData import ReadData
+CAPACITY = 50
 class HomeScreenMenu:
 
     def __init__(self, choice):
+        weight = [10, 40, 20, 30]
+        value = [60, 40, 100, 120]
+        self.df = ReadData(weight, value).create_dataframe()
         self.choice = choice
-        self.menu_sub = {
-                    "1": "A",
-                    "2": "B",
-                    "3": "C",
-                    "4": "D",
-                }
-        self.menu_choices = {
-            "1": {
-                "1": self.menu_sub,
-                "2": self.menu_sub
-            },
-            "2": "C",
-            "3": False,
-        }
-        # self.menu()
-
-    # 1 - The type of Knapsack(Fractional - I / 0)
-    # 2 - The cost function based on(Maximum Profit - Minimum Weight - Maximum Profit / Weight - All)
-    # 3 - Update the objects and the maximum weight of the knapsack(constraint)
-    # 4 - Close the program
+        self.capacity = 50
+        self.knapsack = [FractionalKnapSack(self.df, CAPACITY), IOKnapSack(self.df, CAPACITY)]
+        self.function_choice = 0
 
     def menu(self):
-        if self.choice in self.menu_choices:
+        global CAPACITY
+        if self.choice in ["1", "2", "3"]:
             if self.choice == "1":
-                function_choice = input("1- Fractional Knapsack\n2- I/O Knapsack\n")
-                if function_choice in ["1", "2"]:
-                    choice = input("1- Maximum Profit\n2- Minimum Weight\n3- Maximum Profit / Weight\n4- All\n")
-                    if choice in self.menu_sub:
-                        pass
+                self.function_choice = input("1- Fractional Knapsack\n2- I/O Knapsack\n")
+                if self.function_choice in ["1", "2"]:
+                    choice = input("1- Maximum Profit\n2- Minimum Weight\n3- Maximum Profit / Weight\n")
+                    if choice in ["1", "2", "3"]:
+                        total_value = self.knapsack[int(self.function_choice) - 1].choose_type(choice)
+                        print(f"Total value after adding is : {total_value}")
+                        return True
                     else:
                         print("Entered a wrong choice please try again.")
                         return True
                 else:
                     print("Entered a wrong choice please try again.")
                     return True
-            else:
-                return self.menu_choices[self.choice]
+            elif self.choice == "2":
+                CAPACITY = int(input("Please enter the new capacity value: "))
+                return True
+            elif self.choice == "3":
+                return False
         else:
             print("Entered a wrong choice please try again.")
             return True
