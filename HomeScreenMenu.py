@@ -3,12 +3,12 @@ from IOKnapSack import IOKnapSack
 from ReadData import ReadData
 class HomeScreenMenu:
 
-    def __init__(self, choice):
-        self.df = ReadData().create_dataframe()
+    def __init__(self, choice, data):
+        self.df = ReadData.create_dataframe(data[0], data[1], data[2])
         self.data_in = True
         self.on = True
         self.choice = choice
-        self.capacity = ReadData().capacity
+        self.capacity = data[2]
         self.knapsack = [FractionalKnapSack(self.df, self.capacity), IOKnapSack(self.df, self.capacity)]
         self.function_choice = 0
         self.menu()

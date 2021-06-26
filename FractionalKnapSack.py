@@ -16,7 +16,6 @@ class FractionalKnapSack:
     def apply_fractional_knapsack(self):
         total_value = 0
         i = 0
-        print(self.df)
         while self.capacity > 0:
             print('Capacity = ', self.capacity)
             if self.capacity - self.df['Weight'].iloc[i] >= 0:
@@ -29,4 +28,5 @@ class FractionalKnapSack:
                 print(self.capacity)
                 break
             i += 1
+        print(total_value)
         return total_value

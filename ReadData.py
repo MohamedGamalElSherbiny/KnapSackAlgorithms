@@ -7,13 +7,11 @@ class ReadData:
         self.capacity = 0.0
         self.value_per_weight = [self.value[i] / self.weight[i] for i in range(len(self.weight))]
 
-    def create_dataframe(self):
-        print(self.weight)
-        print(self.value)
-        print(self.capacity)
-        items = {"Weight": self.weight,
-                 "Value": self.value,
-                 "Value Per Weight": self.value_per_weight
+    @staticmethod
+    def create_dataframe(weight, value, value_per_weight):
+        items = {"Weight": weight,
+                 "Value": value,
+                 "Value Per Weight": value_per_weight
                  }
         return pd.DataFrame.from_dict(items)
 
@@ -32,3 +30,4 @@ class ReadData:
                 print("Wrong capacity")
             else:
                 on = False
+        return self.weight, self.value, self.capacity
