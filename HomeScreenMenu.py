@@ -1,20 +1,19 @@
 from FractionalKnapSack import FractionalKnapSack
 from IOKnapSack import IOKnapSack
 from ReadData import ReadData
-CAPACITY = 50
 class HomeScreenMenu:
 
     def __init__(self, choice):
-        weight = [10, 40, 20, 30]
-        value = [60, 40, 100, 120]
-        self.df = ReadData(weight, value).create_dataframe()
+        self.df = ReadData().create_dataframe()
+        self.data_in = True
+        self.on = True
         self.choice = choice
-        self.capacity = 50
-        self.knapsack = [FractionalKnapSack(self.df, CAPACITY), IOKnapSack(self.df, CAPACITY)]
+        self.capacity = ReadData().capacity
+        self.knapsack = [FractionalKnapSack(self.df, self.capacity), IOKnapSack(self.df, self.capacity)]
         self.function_choice = 0
+        self.menu()
 
     def menu(self):
-        global CAPACITY
         if self.choice in ["1", "2", "3"]:
             if self.choice == "1":
                 self.function_choice = input("1- Fractional Knapsack\n2- I/O Knapsack\n")
@@ -31,10 +30,12 @@ class HomeScreenMenu:
                     print("Entered a wrong choice please try again.")
                     return True
             elif self.choice == "2":
-                CAPACITY = int(input("Please enter the new capacity value: "))
-                return True
+                self.on = False
+                return
             elif self.choice == "3":
-                return False
+                self.data_in = False
+                self.on = False
+                return
         else:
             print("Entered a wrong choice please try again.")
             return True
